@@ -12,6 +12,7 @@
 		2EADDA401D7A38F500183E51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EADDA3F1D7A38F500183E51 /* Assets.xcassets */; };
 		2EADDA431D7A38F500183E51 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EADDA411D7A38F500183E51 /* Main.storyboard */; };
 		2EADDA4E1D7A38F500183E51 /* LetterPairSimilarityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EADDA4D1D7A38F500183E51 /* LetterPairSimilarityTests.swift */; };
+		2EADDA5C1D7A3C0E00183E51 /* LetterPairSimilarity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EADDA5B1D7A3C0E00183E51 /* LetterPairSimilarity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +35,9 @@
 		2EADDA491D7A38F500183E51 /* LetterPairSimilarityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LetterPairSimilarityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EADDA4D1D7A38F500183E51 /* LetterPairSimilarityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterPairSimilarityTests.swift; sourceTree = "<group>"; };
 		2EADDA4F1D7A38F500183E51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2EADDA591D7A3B6600183E51 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		2EADDA5A1D7A3B6600183E51 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		2EADDA5B1D7A3C0E00183E51 /* LetterPairSimilarity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LetterPairSimilarity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 		2EADDA2F1D7A38F500183E51 = {
 			isa = PBXGroup;
 			children = (
+				2EADDA591D7A3B6600183E51 /* .gitignore */,
+				2EADDA5A1D7A3B6600183E51 /* .swiftlint.yml */,
 				2EADDA3A1D7A38F500183E51 /* LetterPairSimilarity */,
 				2EADDA4C1D7A38F500183E51 /* LetterPairSimilarityTests */,
 				2EADDA391D7A38F500183E51 /* Products */,
@@ -76,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				2EADDA3B1D7A38F500183E51 /* AppDelegate.swift */,
+				2EADDA5B1D7A3C0E00183E51 /* LetterPairSimilarity.swift */,
 				2EADDA3D1D7A38F500183E51 /* ViewController.swift */,
 				2EADDA3F1D7A38F500183E51 /* Assets.xcassets */,
 				2EADDA411D7A38F500183E51 /* Main.storyboard */,
@@ -103,6 +110,7 @@
 				2EADDA341D7A38F500183E51 /* Sources */,
 				2EADDA351D7A38F500183E51 /* Frameworks */,
 				2EADDA361D7A38F500183E51 /* Resources */,
+				2EADDA581D7A3AB600183E51 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -188,12 +196,29 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2EADDA581D7A3AB600183E51 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n\tswiftlint\nelse\n\techo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2EADDA341D7A38F500183E51 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				2EADDA3E1D7A38F500183E51 /* ViewController.swift in Sources */,
+				2EADDA5C1D7A3C0E00183E51 /* LetterPairSimilarity.swift in Sources */,
 				2EADDA3C1D7A38F500183E51 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
