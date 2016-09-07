@@ -1,21 +1,18 @@
-# CSV
-CSV - a fast cvs parser for large files written in Swift
+# LetterPairSimilarity
 
-Yet another CSV parser.  This one is written in Swift and is meant for processing very large input files. I was able to read and parse a 10 million line file in around 52 to 58 seconds.  Includes a few basic cvs files for unit testing.  Thoroughly tested and has no memory leaks.
+## Introduction and License
+This is a Swift implementation of a BiGram string matching algorithm originally written by Simon White in Java called LetterSimilarity.  See: http://www.catalysoft.com/articles/StrikeAMatch.html
 
-The algorithm employed in the CSV parser was gleaned from libcsv by Robert Gamble.
-Modifications were made to be lenient with quote characters appearing inside of non-quoted fields.
-
-Updated on August 9, 2016
-1) Added support for quoted fields containing new-line characters.
-2) Made the parser more lenient towards quote characters within non-quoted fields.
-3) General code cleanup.
-
-TODO:
-1) Add a CSV writer
-2) Make the XCTest more robust and check the expected values.
-3) Make the TextFile more robust and verify that the file is a text file and not some bunch of binary data.
+This implementation is placed in the Public Domain.
 
 
+## Usage Example
+```swift
+let lps = LetterPairSimilarity()
+let score = lps.compareStrings( "French Republic", str2: "Republic of France")
+
+//  score is a Double from 0.0 to 100.0 where 0.0 is no similarity at all, 100.0 is an exact match.
+...
+```
 Enjoy!
 -Allan
