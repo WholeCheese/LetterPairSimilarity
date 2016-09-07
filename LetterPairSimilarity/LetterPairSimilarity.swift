@@ -3,7 +3,23 @@
 //  LetterPairSimilarity
 //
 //  Created by Allan Hoeltje on 9/2/16.
-//  Copyright © 2016 Allan Hoeltje. All rights reserved.
+//
+//	Permission is hereby granted, free of charge, to any person obtaining a copy of
+//	this software and associated documentation files (the "Software"), to deal in
+//	the Software without restriction, including without limitation the rights to
+//	use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+//	the Software, and to permit persons to whom the Software is furnished to do so,
+//	subject to the following conditions:
+//
+//	The above copyright notice and this permission notice shall be included in all
+//	copies or substantial portions of the Software.
+//
+//	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+//	FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+//	COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+//	IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+//	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
 import Foundation
@@ -14,6 +30,8 @@ import Foundation
 public class LetterPairSimilarity: NSObject
 {
 	///	Compare two strings.
+	///	Note that CJK strings are not handled very well since they tend to get word-parsed into single
+	///	unicode characters.  This algorithm expects character pairs.
 	///	- Parameters:
 	///		- str1: a string to compare to str2
 	///		- str2: a string to compare to str1
@@ -57,7 +75,7 @@ public class LetterPairSimilarity: NSObject
 	{
 		var allPairs = [String]()
 
-//		let words = str.normalizedWords()
+//		let words = str.normalizedWords()	//	TESTING - does not seem to offer any advantages, but was fun to write.
 		let words = str.words()
 		for word in words
 		{
@@ -87,6 +105,7 @@ public class LetterPairSimilarity: NSObject
 //		if numPairs < 1
 //		{
 //			//	TODO: what do we do with one character words?
+//			//	How about returning a 1 element array of the single character?
 //			print("\(str)")
 //		}
 
@@ -117,6 +136,7 @@ extension String
 {
 	///	String extension to enumerate the words in the string
 	///	We use a linguistic tagger to map English words like "shouldn't" to ["should", "not"] and "done" to ["do"]
+	///	TODO: however it is buggy!  "should't" becomes "should not" but "can't" becomes "ca not"
 	///	- Returns: An array of word strings
 	func normalizedWords() -> [String]
 	{
@@ -150,11 +170,13 @@ extension String
 
 extension String
 {
-	///	Cool extension taken from Three Ways to Enumerate the Words In a String Using Swift
+	///	Cool extension taken from Three Ways to Enumerate the Words In a String Using Swift.
 	///	https://medium.com/@sorenlind/three-ways-to-enumerate-the-words-in-a-string-using-swift-7da5504f0062#.mi9oick6x
 	///	- Returns: An array of word strings
 	func words() -> [String]
 	{
+		//	The NSStringEnumerationOptions ByWords correctly handles unicode characters.
+		//	TODO: but does it correctly handle CJK words?
 		let range = Range<String.Index>(self.startIndex ..< self.endIndex)
 		var words = [String]()
 
