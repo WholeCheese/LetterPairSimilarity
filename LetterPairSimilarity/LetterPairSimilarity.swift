@@ -27,7 +27,7 @@ import Foundation
 ///	LetterPairSimilarity
 ///	From an article by Simon White.
 ///	See: http://www.catalysoft.com/articles/StrikeAMatch.html
-public class LetterPairSimilarity: NSObject
+open class LetterPairSimilarity: NSObject
 {
 	///	Compare two strings.
 	///	Note that CJK strings are not handled very well since they tend to get word-parsed into single
@@ -36,7 +36,7 @@ public class LetterPairSimilarity: NSObject
 	///		- str1: a string to compare to str2
 	///		- str2: a string to compare to str1
 	///	- Returns: a lexical similarity value in the range 0...1 where 0 is no similaraity at all and 1 is a perfect match.
-	public func compareStrings(str1: String, str2: String) -> Double
+	open func compareStrings(_ str1: String, str2: String) -> Double
 	{
 		var intersection = 0
 
@@ -56,7 +56,7 @@ public class LetterPairSimilarity: NSObject
 					//	pair multiple times. (Otherwise, 'GGGGG' would score a perfect match against 'GG'.)
 
 					intersection += 1
-					pairs2.removeAtIndex(j)
+					pairs2.remove(at: j)
 					break	//	leave the pair2 loop
 				}
 
@@ -71,7 +71,7 @@ public class LetterPairSimilarity: NSObject
 	/// - Parameters:
 	///		- str: a string of words
 	///	- Returns: an array of letter pairs from all the words in str.
-	private func wordLetterPairs(str: String) -> [String]
+	fileprivate func wordLetterPairs(_ str: String) -> [String]
 	{
 		var allPairs = [String]()
 
@@ -96,7 +96,7 @@ public class LetterPairSimilarity: NSObject
 	/// - Parameters:
 	///		- str: the string from which we extract letter pairs
 	///	- Returns: An array of letter pair strings
-	private func letterPairs(str: String) -> [String]
+	fileprivate func letterPairs(_ str: String) -> [String]
 	{
 		var pairs = [String]()
 
@@ -122,12 +122,26 @@ extension String
 {
 	subscript (range: Range<Int>) -> String
 	{
+		//	IMHO, string subscripting ought to easier than this?  Like, maybe built into the language??
 		get
 		{
-			let startIndex = self.startIndex.advancedBy(range.startIndex)
-			let endIndex = startIndex.advancedBy(range.endIndex - range.startIndex)
+			//	If the range is outside of the string then just return an empty string.
+			var lower = range.lowerBound
+			if lower > self.characters.count
+			{
+				lower = self.characters.count
+			}
 
-			return self[Range(startIndex ..< endIndex)]
+			var upper = range.upperBound
+			if upper > self.characters.count
+			{
+				upper = self.characters.count
+			}
+
+			let begIdx = self.characters.index(self.startIndex, offsetBy: lower)
+			let endIdx = self.characters.index(begIdx, offsetBy: (upper - lower))
+
+			return self[Range(begIdx ..< endIdx)]
 		}
 	}
 }
@@ -140,9 +154,9 @@ extension String
 	///	- Returns: An array of word strings
 	func normalizedWords() -> [String]
 	{
-		let options = NSLinguisticTaggerOptions.OmitWhitespace.rawValue
-			| NSLinguisticTaggerOptions.OmitPunctuation.rawValue
-			| NSLinguisticTaggerOptions.OmitOther.rawValue
+		let options = NSLinguisticTagger.Options.omitWhitespace.rawValue
+			| NSLinguisticTagger.Options.omitPunctuation.rawValue
+			| NSLinguisticTagger.Options.omitOther.rawValue
 
 		let schemes	= [NSLinguisticTagSchemeLexicalClass, NSLinguisticTagSchemeLemma]
 		let tagger	= NSLinguisticTagger(tagSchemes: schemes, options: Int(options))
@@ -152,16 +166,16 @@ extension String
 		let range = NSRange(location: 0, length: self.characters.count)
 		var words = [String]()
 
-		tagger.enumerateTagsInRange(
-			range,
+		tagger.enumerateTags(
+			in: range,
 			scheme: NSLinguisticTagSchemeLemma,	//	supplies a stem form for each word token (if known).
-			options: NSLinguisticTaggerOptions(rawValue: options))
+			options: NSLinguisticTagger.Options(rawValue: options))
 		{
 			(tag, tokenRange, _, _) -> () in
-			let token = (self as NSString).substringWithRange(tokenRange)
+			let token = (self as NSString).substring(with: tokenRange)
 //			print("\(tag): \(token)")
 
-			words.append( (tag.isEmpty) ? token.lowercaseString : tag.lowercaseString)
+			words.append( (tag.isEmpty) ? token.lowercased() : tag.lowercased())
 		}
 
 		return words
@@ -177,13 +191,13 @@ extension String
 	{
 		//	The NSStringEnumerationOptions ByWords correctly handles unicode characters.
 		//	TODO: but does it correctly handle CJK words?
-		let range = Range<String.Index>(self.startIndex ..< self.endIndex)
+		let range = Range<String.Index>(self.characters.startIndex ..< self.characters.endIndex)
 		var words = [String]()
 
-		self.enumerateSubstringsInRange(range, options: NSStringEnumerationOptions.ByWords)
+		self.enumerateSubstrings(in: range, options: NSString.EnumerationOptions.byWords)
 		{
 			(substring, _, _, _) -> () in
-				words.append(substring!.lowercaseString)
+				words.append(substring!.lowercased())
 		}
 
 		return words

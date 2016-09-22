@@ -151,9 +151,11 @@
 				TargetAttributes = {
 					2EADDA371D7A38F500183E51 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 					2EADDA481D7A38F500183E51 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 2EADDA371D7A38F500183E51;
 					};
 				};
@@ -344,6 +346,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Wholecheese-LLC.LetterPairSimilarity";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -356,6 +359,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Wholecheese-LLC.LetterPairSimilarity";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -368,6 +372,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Wholecheese-LLC.LetterPairSimilarityTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LetterPairSimilarity.app/Contents/MacOS/LetterPairSimilarity";
 			};
 			name = Debug;
@@ -381,6 +386,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Wholecheese-LLC.LetterPairSimilarityTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LetterPairSimilarity.app/Contents/MacOS/LetterPairSimilarity";
 			};
 			name = Release;
@@ -404,6 +410,7 @@
 				2EADDA541D7A38F500183E51 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2EADDA551D7A38F500183E51 /* Build configuration list for PBXNativeTarget "LetterPairSimilarityTests" */ = {
 			isa = XCConfigurationList;
@@ -412,6 +419,7 @@
 				2EADDA571D7A38F500183E51 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
