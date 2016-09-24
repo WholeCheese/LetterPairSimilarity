@@ -99,52 +99,48 @@ open class LetterPairSimilarity: NSObject
 	fileprivate func letterPairs(_ str: String) -> [String]
 	{
 		var pairs = [String]()
-
-		let numPairs = str.characters.count - 1
-
-//		if numPairs < 1
-//		{
-//			//	TODO: what do we do with one character words?
-//			//	How about returning a 1 element array of the single character?
-//			print("\(str)")
-//		}
-
-		for i in 0 ..< numPairs
+		var s = String()
+		for (i, c) in str.characters.enumerated()
 		{
-			pairs.append(str[i ..< (i + 2)])
+			s.append(c)
+
+			if i != 0
+			{
+				pairs.append(s)
+				s = ""
+				s.append(c)
+			}
 		}
 
 		return pairs
 	}
 }
 
+
+/*	Leaving this here for posterity. 
+	Subscripting into a string to obtain a substring is not a good way to split a string into character pairs.
+	
 extension String
 {
+	//	Return a substring based on a range subscript.  "Hello"[Range(1...3)] returns "ell"
 	subscript (range: Range<Int>) -> String
 	{
-		//	IMHO, string subscripting ought to easier than this?  Like, maybe built into the language??
 		get
 		{
-			//	If the range is outside of the string then just return an empty string.
-			var lower = range.lowerBound
-			if lower > self.characters.count
+			if let begIdx = self.characters.index(self.startIndex, offsetBy: range.lowerBound, limitedBy: self.endIndex)
 			{
-				lower = self.characters.count
+				if let endIdx = self.characters.index(begIdx, offsetBy: (range.upperBound - range.lowerBound), limitedBy: self.endIndex)
+				{
+					return self[Range(begIdx ..< endIdx)]
+				}
 			}
 
-			var upper = range.upperBound
-			if upper > self.characters.count
-			{
-				upper = self.characters.count
-			}
-
-			let begIdx = self.characters.index(self.startIndex, offsetBy: lower)
-			let endIdx = self.characters.index(begIdx, offsetBy: (upper - lower))
-
-			return self[Range(begIdx ..< endIdx)]
+			return ""
 		}
 	}
 }
+*/
+
 
 extension String
 {
